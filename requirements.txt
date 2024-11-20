@@ -1,0 +1,6 @@
+typer
+pandas
+atlassian-python-api
+rich
+python-dotenv
+fpdf
