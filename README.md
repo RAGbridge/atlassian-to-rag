@@ -1,4 +1,4 @@
-# confluence-to-rag 📚→🤖 (work-in-progress!!)
+# atlassian-to-rag 📚→🤖 (work-in-progress!!)
 
 Convert Confluence spaces and pages into RAG-optimized content for AI applications. This tool helps bridge the gap between Confluence documentation and AI by making your content queryable through RAG (Retrieval-Augmented Generation).
 
