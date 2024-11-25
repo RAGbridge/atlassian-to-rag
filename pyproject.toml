@@ -22,6 +22,7 @@ redis = "*"
 prometheus-client = "*"
 pyjwt = "*"
 psutil = "*"
+lxml = "*"  # Added for HTML table processing
 
 [tool.poetry.group.dev.dependencies]
 pytest = "*"
