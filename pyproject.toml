@@ -1,0 +1,51 @@
+[tool.poetry]
+name = "atlassian-to-rag"
+version = "0.1.0"
+description = "Convert Confluence spaces and pages into RAG-optimized content for AI applications"
+authors = ["Your Name <zachary.kehl@geappliances.com>"]
+license = "Apache-2.0"
+readme = "README.md"
+packages = [{include = "atlassian_to_rag"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+typer = "*"
+pandas = "*"
+atlassian-python-api = "*"
+rich = "*"
+python-dotenv = "*"
+fpdf = "*"
+beautifulsoup4 = "*"
+structlog = "*"
+python-json-logger = "*"
+redis = "*"
+prometheus-client = "*"
+pyjwt = "*"
+psutil = "*"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "*"
+pytest-cov = "*"
+pytest-mock = "*"
+black = "*"
+flake8 = "*"
+mypy = "*"
+isort = "*"
+pre-commit = "*"
+
+[tool.poetry.scripts]
+atlassian-to-rag = "atlassian_to_rag.main:app"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 200
+target-version = ['py39']
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 200
