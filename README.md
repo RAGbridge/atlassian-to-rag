@@ -141,11 +141,20 @@ graph TD
 
 ## Installation 🚀
 
+### Prerequisites
+- Python 3.9 or higher
+- Poetry package manager
+
 ### Using Poetry
 
+1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/confluence-to-rag.git
-cd confluence-to-rag
+git clone https://github.com/yourusername/atlassian-to-rag.git
+cd atlassian-to-rag
+```
+
+2. Install dependencies using Poetry:
+```bash
 poetry install
 ```
 
@@ -157,7 +166,18 @@ poetry install
    - Navigate to Security
    - Generate an API token
 
-2. Set environment variables:
+2. Set up environment variables:
+```bash
+# Create a .env file in the project root
+touch .env
+
+# Add the following to your .env file:
+CONFLUENCE_URL='https://your-domain.atlassian.net'
+CONFLUENCE_USERNAME='your-email@domain.com'
+CONFLUENCE_API_TOKEN='your-api-token'
+```
+
+Or set them directly in your terminal:
 ```bash
 export CONFLUENCE_URL='https://your-domain.atlassian.net'
 export CONFLUENCE_USERNAME='your-email@domain.com'
@@ -170,17 +190,36 @@ export CONFLUENCE_API_TOKEN='your-api-token'
 
 1. **Extract a Confluence space**:
 ```bash
-python main.py extract-space SPACENAME
+poetry run atlassian-to-rag extract-space SPACENAME
 ```
 
 2. **Extract a single page**:
 ```bash
-python main.py extract-page PAGE_ID --format pdf
+poetry run atlassian-to-rag extract-page PAGE_ID --format pdf
 ```
 
 3. **Process extracted content to RAG format**:
 ```bash
-python main.py process ./output/data/SPACENAME_content.csv
+poetry run atlassian-to-rag process ./output/data/SPACENAME_content.csv
+```
+
+### Additional Options
+
+- Specify output directory:
+```bash
+poetry run atlassian-to-rag extract-space SPACENAME --output-dir /custom/path
+```
+
+- Choose output format:
+```bash
+poetry run atlassian-to-rag extract-space SPACENAME --format all  # Outputs all formats
+poetry run atlassian-to-rag extract-space SPACENAME --format raw  # Only raw CSV
+poetry run atlassian-to-rag extract-space SPACENAME --format processed  # Only processed JSONL
+```
+
+- Process single pages with attachments and comments:
+```bash
+poetry run atlassian-to-rag extract-page PAGE_ID --include-attachments --include-comments
 ```
 
 ### Output Format 📄
@@ -216,18 +255,26 @@ Errors are logged to:
 
 ## Development 🛠️
 
-### Setup
+### Setup Development Environment
 
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/confluence-to-rag.git
-cd confluence-to-rag
+git clone https://github.com/yourusername/atlassian-to-rag.git
+cd atlassian-to-rag
 
-# Install dependencies
-poetry install
+# Install dependencies with dev packages
+poetry install --with dev
 
-# Run with Poetry
-poetry run python main.py extract-space SPACENAME
+# Install pre-commit hooks
+poetry run pre-commit install
+
+# Run tests
+poetry run pytest
+
+# Run linting
+poetry run flake8
+poetry run black .
+poetry run mypy .
 ```
 
 ## Contributing 🤝
@@ -242,19 +289,30 @@ poetry run python main.py extract-space SPACENAME
 
 ### Common Issues
 
-1. **"No access token provided"**
+1. **Module Not Found Error**
+   - Make sure you're using the correct command format:
    ```bash
-   export CONFLUENCE_API_TOKEN='your_token_here'
-   # or
-   python main.py extract-space SPACENAME --api-token your_token_here
+   poetry run atlassian-to-rag [command]
+   ```
+   - Not:
+   ```bash
+   python -m atlassian_to_rag [command]  # This won't work
    ```
 
-2. **Connection Issues**
+2. **"No access token provided"**
+   - Check your environment variables are set correctly
+   - Verify your .env file is in the correct location
+   - Try setting the token directly:
+   ```bash
+   export CONFLUENCE_API_TOKEN='your_token_here'
+   ```
+
+3. **Connection Issues**
    - Check your Confluence URL is correct
    - Verify your API token has correct permissions
    - Ensure you have network access to Confluence
 
-3. **HTML Processing Issues**
+4. **HTML Processing Issues**
    - Try extracting a single page first to verify content
    - Check if the page contains complex macros or embeds
 
@@ -264,8 +322,8 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 ## Support 💬
 
-- 📫 For bugs and feature requests, please [open an issue](https://github.com/yourusername/confluence-to-rag/issues)
-- 💡 For questions and discussions, please use [GitHub Discussions](https://github.com/yourusername/confluence-to-rag/discussions)
+- 📫 For bugs and feature requests, please [open an issue](https://github.com/yourusername/atlassian-to-rag/issues)
+- 💡 For questions and discussions, please use [GitHub Discussions](https://github.com/yourusername/atlassian-to-rag/discussions)
 
 ## Acknowledgments 🙏
 
